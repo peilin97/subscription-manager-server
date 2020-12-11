@@ -4,7 +4,7 @@
 ### Installation
 1. Clone the repo
 2. ```npm install```
-3. ```npm start```
+3. ```npm run start:dev```
 4. To run GraphQL queries, install GraphQL Playground IDE: https://github.com/graphql/graphql-playground
 
 ### Examples to run on GraphQL Playground IDE

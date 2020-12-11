@@ -4,10 +4,12 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import mongoose from 'mongoose';
 import { graphqlHTTP } from 'express-graphql';
+import dotenv from 'dotenv';
 import userSchema from './src/graphql/userIndex.js';
 import adminSchema from './src/graphql/adminIndex.js';
 import { getUserId } from './src/utils.js';
 
+dotenv.config();
 // connect mongoose to the mongodb database
 const mongoDBEndpoint = process.env.MONGODB_URI || 'mongodb://127.0.0.1/sub_manager';
 mongoose.connect(mongoDBEndpoint, {
