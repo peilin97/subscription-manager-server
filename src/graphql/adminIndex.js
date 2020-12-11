@@ -1,6 +1,6 @@
 import { GraphQLObjectType, GraphQLSchema } from 'graphql';
-import mutation from './mutation.js';
-import query from './query.js';
+import mutation from './mutations/admin.js';
+import query from './queries/admin.js';
 
 const Schema = new GraphQLSchema({
     query: query,

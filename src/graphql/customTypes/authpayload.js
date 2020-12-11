@@ -9,7 +9,7 @@ const AuthPayloadType = new GraphQLObjectType({
     name: 'AuthPayload',
     fields: () => ({
         token: {type: new GraphQLNonNull(GraphQLString)},
-        user: {type: new GraphQLNonNull(UserType)},
+        user: {type: UserType},
     })
 })
 

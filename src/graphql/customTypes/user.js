@@ -7,7 +7,7 @@ import {
     GraphQLNonNull
 } from 'graphql';
 import SubscriptionServiceType from './subscription.js';
-import SubscriptionModel from '../models/subscription.js';
+import SubscriptionModel from '../../models/subscription.js';
 
 const UserType = new GraphQLObjectType({
     name: 'User',

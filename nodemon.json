@@ -1,0 +1,5 @@
+{ 
+    "env": { 
+      "APP_SECRET": "GraphQL-is-aw3some"
+      }
+}

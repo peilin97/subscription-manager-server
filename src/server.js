@@ -1,6 +1,10 @@
 import express, { request } from 'express';
+import cookieParser from 'cookie-parser';
+import bodyParser from 'body-parser';
+import cors from 'cors';
 import { graphqlHTTP } from 'express-graphql';
-import schema from './graphql/index.js';
+import userSchema from './graphql/userIndex.js';
+import adminSchema from './graphql/adminIndex.js';
 import mongoose from 'mongoose';
 import { getUserId } from './utils.js';
 
@@ -16,31 +20,54 @@ const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'Error connecting to mongodb'));
 
 const app = express();
+app.use(bodyParser.json());
+app.use(cookieParser());
+const corsCredentials = {
+    credentials: true,
+    // origin: process.env.PLAYGROUND_URL,
+    origin: true,
+}
+app.use(cors(corsCredentials));
+app.options('*', cors(corsCredentials));
+app.use(express.urlencoded({
+    extended: true
+  }));
 
 function context(req) {
     // console.log("req: "+ req);
     return req && req.headers.authorization
           ? getUserId(req)
           : null;
-    // const userId = getUserId(req);
-    // console.log("userId: " + userId);
-    // return userId;
 }
 
-
-//This route will be used as an endpoint to interact with Graphql, 
-//All queries will go through this route. 
-app.use('/graphql', graphqlHTTP((req) => ({
+// user's endpoint
+app.use('/user', graphqlHTTP((request, response) => ({
     //directing express-graphql to use this schema to map out the graph 
-    schema,
+    schema: userSchema,
     context: {
         request: request,
-        userId: context(req),
+        response: response,
+        userId: context(request),
     },
-    //directing express-graphql to use graphiql when goto '/graphql' address in the browser
-    //which provides an interface to make GraphQl queries
     graphiql:true
 })));
+
+// administrator's endpoint
+app.use('/admin', graphqlHTTP((request, response) => ({
+    schema: adminSchema,
+    context: {
+        request: request,
+        response: response,
+        adminId: context(request),
+    },
+    graphiql:true
+})));
+
+// for testing
+app.use('/', function (req, res) {
+    // console.log(req.ip);
+    res.send("hello");
+})
 
 app.listen(3000, () => {
     console.log('Listening on port 3000');

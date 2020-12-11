@@ -10,24 +10,20 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.ccs.neu.edu/peilin/subscription-manager-server.git"
+    "url": "https://github.com/peilin97/subscription-manager-server.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@accounts/graphql-api": "^0.29.0",
-    "@accounts/mongo": "^0.29.0",
-    "@accounts/password": "^0.29.0",
-    "@accounts/server": "^0.29.0",
     "@graphql-modules/core": "^0.7.17",
     "@graphql-toolkit/schema-merging": "^0.10.7",
     "@mongoosejs/double": "^0.2.0",
-    "apollo-datasource-mongodb": "^0.2.8",
-    "apollo-datasource-rest": "^0.9.5",
-    "apollo-server": "^2.19.0",
     "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
     "connect-mongo": "^3.2.0",
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "express-graphql": "^0.12.0",
     "graphql": "^15.4.0",
