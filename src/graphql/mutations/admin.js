@@ -4,6 +4,7 @@ import Isemail from 'isemail';
 import {
     GraphQLString,
     GraphQLNonNull,
+    GraphQLBoolean,
 } from 'graphql';
 import UserModel from '../../models/user.js';
 import AdministratorModel from '../../models/administrator.js';
@@ -103,8 +104,24 @@ const findUser = {
     }
 }
 
+const deleteUser = {
+    type: GraphQLBoolean,
+    args: {
+        userEmail: {type: new GraphQLNonNull(GraphQLString)},
+    },
+    resolve: async function(_, { userEmail }, context) {
+        const { adminId } = context;
+        if ( !adminId ) {
+            throw new Error("Invalid request");
+        }
+        const user = await UserModel.findOneAndDelete({email: userEmail});
+        return user ? true : false;
+    }
+}
+
 export {
     signup,
     login,
     findUser,
+    deleteUser,
 };

@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 import {
-    GraphQLBoolean
+    GraphQLBoolean,
 } from 'graphql';
 
 const logout = {

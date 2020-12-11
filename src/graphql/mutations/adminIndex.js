@@ -1,7 +1,8 @@
 import {
     signup,
     login,
-    findUser
+    findUser,
+    deleteUser,
 } from './admin.js';
 import { logout } from './common.js';
 
@@ -10,4 +11,5 @@ export default {
     login,
     logout,
     findUser,
+    deleteUser,
 }
