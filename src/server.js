@@ -31,7 +31,9 @@ app.use(cors(corsCredentials));
 app.options('*', cors(corsCredentials));
 app.use(express.urlencoded({
     extended: true
-  }));
+}));
+
+app.set('port', (process.env.PORT || 5000))
 
 function context(req) {
     // console.log("req: "+ req);
@@ -69,6 +71,6 @@ app.use('/', function (req, res) {
     res.send("hello");
 })
 
-app.listen(3000, () => {
-    console.log('Listening on port 3000');
+app.listen(app.get('port'), () => {
+    console.log("App is running at localhost:" + app.get('port'));
 }); 
