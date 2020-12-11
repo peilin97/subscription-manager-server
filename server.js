@@ -2,11 +2,11 @@ import express, { request } from 'express';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import cors from 'cors';
-import { graphqlHTTP } from 'express-graphql';
-import userSchema from './graphql/userIndex.js';
-import adminSchema from './graphql/adminIndex.js';
 import mongoose from 'mongoose';
-import { getUserId } from './utils.js';
+import { graphqlHTTP } from 'express-graphql';
+import userSchema from './src/graphql/userIndex.js';
+import adminSchema from './src/graphql/adminIndex.js';
+import { getUserId } from './src/utils.js';
 
 // connect mongoose to the mongodb database
 const mongoDBEndpoint = process.env.MONGODB_URI || 'mongodb://127.0.0.1/sub_manager';

@@ -1,8 +1,5 @@
-import mongoose from 'mongoose';
-import jwt from 'jsonwebtoken';
 import {
     GraphQLObjectType,
-    GraphQLString,
 } from 'graphql';
 import AdministratorModel from '../../models/administrator.js';
 import AdministratorType from '../customTypes/administrator.js';

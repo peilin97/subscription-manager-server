@@ -1,5 +1,4 @@
 import jwt from 'jsonwebtoken';
-// export const APP_SECRET = 'GraphQL-is-aw3some';
 
 function getTokenPayload(token) {
     return jwt.verify(token, process.env.APP_SECRET);
