@@ -1,6 +1,3 @@
-// import bcrypt from 'bcryptjs';
-// import jwt from 'jsonwebtoken';
-// import Isemail from 'isemail';
 import {
     GraphQLFloat,
     GraphQLString,
@@ -9,13 +6,12 @@ import {
 import UserModel from '../../models/user.js';
 import SubscriptionModel from '../../models/subscription.js';
 import UserType from '../customTypes/user.js';
-import SubscriptionServiceType, {
+import {
     FrequencyType,
     CategoryType,
 } from '../customTypes/subscription.js';
 import GraphQLISODate from 'graphql-iso-date';
 import {
-    // checkPassword,
     updateBillingDate,
 } from '../../utils.js';
 
@@ -83,7 +79,7 @@ const editSubscriptionToUser = {
         frequency: {type: new GraphQLNonNull(FrequencyType)},
         category: {type: new GraphQLNonNull(CategoryType)},
     },
-    resolve: async function(parent, args, context) {
+    resolve: async function(_, args, context) {
         const { userId } = context;
         await SubscriptionModel.findByIdAndUpdate(
             args.id,
@@ -123,31 +119,31 @@ const deleteSubscriptionToUser = {
     }
 }
 
-const createSubscription = {
-    type: SubscriptionServiceType,
-    args: {
-        name: {type: new GraphQLNonNull(GraphQLString)},
-        billingDate: {type: GraphQLDate},
-        cost: {type: new GraphQLNonNull(GraphQLFloat)},
-        frequency: {type: new GraphQLNonNull(FrequencyType)},
-        category: {type: new GraphQLNonNull(CategoryType)},
-    },
-    resolve: async function(parent, args) {
-        const newSubscription = {
-            name: args.name,
-            billingDate: args.billingDate,
-            cost: args.cost,
-            category: args.category,
-            frequency: args.frequency,
-        };
-        return newSubscription;
-    }
-}
+// const createSubscription = {
+//     type: SubscriptionServiceType,
+//     args: {
+//         name: {type: new GraphQLNonNull(GraphQLString)},
+//         billingDate: {type: GraphQLDate},
+//         cost: {type: new GraphQLNonNull(GraphQLFloat)},
+//         frequency: {type: new GraphQLNonNull(FrequencyType)},
+//         category: {type: new GraphQLNonNull(CategoryType)},
+//     },
+//     resolve: async function(parent, args) {
+//         const newSubscription = {
+//             name: args.name,
+//             billingDate: args.billingDate,
+//             cost: args.cost,
+//             category: args.category,
+//             frequency: args.frequency,
+//         };
+//         return newSubscription;
+//     }
+// }
 
 export {
     getUser,
     postSubscriptionToUser,
     editSubscriptionToUser,
     deleteSubscriptionToUser,
-    createSubscription,
+    // createSubscription,
 };

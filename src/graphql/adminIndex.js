@@ -1,5 +1,5 @@
 import { GraphQLObjectType, GraphQLSchema } from 'graphql';
-import mutation from './mutations/admin.js';
+import mutation from './mutations/adminIndex.js';
 import query from './queries/admin.js';
 
 const Schema = new GraphQLSchema({

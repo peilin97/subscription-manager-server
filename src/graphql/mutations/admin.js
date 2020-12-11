@@ -4,7 +4,6 @@ import Isemail from 'isemail';
 import {
     GraphQLString,
     GraphQLNonNull,
-    GraphQLBoolean
 } from 'graphql';
 import UserModel from '../../models/user.js';
 import AdministratorModel from '../../models/administrator.js';
@@ -90,6 +89,10 @@ const findUser = {
         userEmail: {type: new GraphQLNonNull(GraphQLString)},
     },
     resolve: async function(_, { userEmail }, context) {
+        const { adminId } = context;
+        if ( !adminId ) {
+            throw new Error("Invalid request");
+        }
         const user = await UserModel.findOne({email: userEmail});
         if (!user) {
             throw new Error('No such user found');
@@ -100,7 +103,7 @@ const findUser = {
     }
 }
 
-export default {
+export {
     signup,
     login,
     findUser,

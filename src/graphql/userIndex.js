@@ -1,5 +1,5 @@
 import { GraphQLObjectType, GraphQLSchema } from 'graphql';
-import mutation from './mutations/index.js';
+import mutation from './mutations/userIndex.js';
 import query from './queries/user.js';
 
 const Schema = new GraphQLSchema({

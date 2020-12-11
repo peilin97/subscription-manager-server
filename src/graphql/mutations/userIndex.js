@@ -1,7 +1,7 @@
 import {
     signup,
     login,
-    logout,
+    // logout,
     editProfile,
 } from './auth.js';
 import {
@@ -9,8 +9,8 @@ import {
     postSubscriptionToUser,
     editSubscriptionToUser,
     deleteSubscriptionToUser,
-    // createSubscription,
 } from './user.js';
+import { logout } from './common.js'
 
 export default {
     signup,
@@ -21,5 +21,4 @@ export default {
     postSubscriptionToUser,
     editSubscriptionToUser,
     deleteSubscriptionToUser,
-    // createSubscription,
 };

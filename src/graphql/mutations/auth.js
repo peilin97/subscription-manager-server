@@ -83,17 +83,17 @@ const login = {
 const editProfile = {
     type: AuthPayloadType,
     args: {
-        id: {type: GraphQLString},  // this user's id
+        // id: {type: GraphQLString},  // this user's id
         email: {type: new GraphQLNonNull(GraphQLString)},
         username: {type: new GraphQLNonNull(GraphQLString)},
         password: {type: new GraphQLNonNull(GraphQLString)},
     },
-    resolve: async function (parent, {id, email, username, password}, context) {
+    resolve: async function (_, { email, username, password}, context) {
         const { userId } = context;
         const oldUser = await UserModel.findById(userId);
-        if (userId  !== id) {
-            throw new Error("inconsistent id")
-        }
+        // if (userId  !== id) {
+        //     throw new Error("inconsistent id")
+        // }
         // check the validity of email
         if (oldUser.email !== email
             && await UserModel.exists({email: email})) {
@@ -109,7 +109,7 @@ const editProfile = {
         }
         const hashedPassword = await bcrypt.hash(password, 10);
         const user = await UserModel.findByIdAndUpdate(
-            id,
+            userId,
             {
                 email: email,
                 password: hashedPassword,
@@ -117,7 +117,7 @@ const editProfile = {
             },
             {new: true}
         );
-        const token = jwt.sign({userId: user.id}, process.env.APP_SECRET);
+        const token = jwt.sign({userId: userId}, process.env.APP_SECRET);
         response.cookie('token', token, {httpOnly: true});
         return {
             token,
@@ -126,27 +126,27 @@ const editProfile = {
     }
 }
 
-const logout = {
-    type: GraphQLBoolean,
-    args: {},
-    async resolve(_, __, context) {
-        const { response } = context;
-        // const user = await UserModel.findById(userId);
-        // request.logout();
-        // https://stackoverflow.com/q/12825669/14271877
-        jwt.sign(
-            {},
-            process.env.APP_SECRET,
-            {expiresIn: '0'}
-        );
-        response.cookie('token', '', {httpOnly: true});
-        return true;
-    }
-}
+// const logout = {
+//     type: GraphQLBoolean,
+//     args: {},
+//     async resolve(_, __, context) {
+//         const { response } = context;
+//         // const user = await UserModel.findById(userId);
+//         // request.logout();
+//         // https://stackoverflow.com/q/12825669/14271877
+//         jwt.sign(
+//             {},
+//             process.env.APP_SECRET,
+//             {expiresIn: '0'}
+//         );
+//         response.cookie('token', '', {httpOnly: true});
+//         return true;
+//     }
+// }
 
 export {
     signup,
     login,
-    logout,
+    // logout,
     editProfile,
 };
