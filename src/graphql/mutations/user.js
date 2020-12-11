@@ -13,11 +13,13 @@ import SubscriptionServiceType, {
     FrequencyType,
     CategoryType,
 } from '../customTypes/subscription.js';
-import { GraphQLDate } from 'graphql-iso-date';
+import GraphQLISODate from 'graphql-iso-date';
 import {
     // checkPassword,
     updateBillingDate,
 } from '../../utils.js';
+
+const { GraphQLDate } = GraphQLISODate;
 
 const getUser = {
     type: UserType,

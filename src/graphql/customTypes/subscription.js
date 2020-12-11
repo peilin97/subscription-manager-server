@@ -6,7 +6,9 @@ import {
     GraphQLEnumType,
     GraphQLNonNull,
 } from 'graphql';
-import { GraphQLDate } from 'graphql-iso-date';
+import GraphQLISODate from 'graphql-iso-date';
+
+const { GraphQLDate } = GraphQLISODate;
 
 export const FrequencyType = new GraphQLEnumType({
     name: 'Frequency',
