@@ -35,7 +35,7 @@ const signup = {
             throw new Error(result.message);
         }
         const hashedPassword = await bcrypt.hash(password, 10);
-        if (invitationCode !== env.process.ADMINISTRATOR_SECRET) {
+        if (invitationCode !== process.env.ADMINISTRATOR_SECRET) {
             throw new Error('Invalid invitation code');
         }
         const administrator = await AdministratorModel.create({
