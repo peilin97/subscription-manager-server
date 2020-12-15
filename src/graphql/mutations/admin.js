@@ -35,8 +35,6 @@ const signup = {
             throw new Error(result.message);
         }
         const hashedPassword = await bcrypt.hash(password, 10);
-        console.log(invitationCode);
-        console.log(process.env.ADMINISTRATOR_SECRET);
         if (invitationCode !== process.env.ADMINISTRATOR_SECRET) {
             throw new Error('Invalid invitation code');
         }
@@ -76,7 +74,9 @@ const login = {
             process.env.APP_SECRET,
             {expiresIn: '30d'},
         );
+        // console.log(response);
         response.cookie('token', token, {httpOnly: true});
+        // console.log(response.cookies.token.token);
         return administrator;
     }
 }

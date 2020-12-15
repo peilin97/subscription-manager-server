@@ -7,7 +7,7 @@ import { graphqlHTTP } from 'express-graphql';
 import dotenv from 'dotenv';
 import userSchema from './src/graphql/userIndex.js';
 import adminSchema from './src/graphql/adminIndex.js';
-import { getUserId } from './src/utils.js';
+import { getUserId, getAdminId } from './src/utils.js';
 
 dotenv.config();
 // connect mongoose to the mongodb database
@@ -38,10 +38,17 @@ app.options('*', cors(corsCredentials));
 
 app.set('port', (process.env.PORT || 5000))
 
-function context(req) {
-    // console.log("req: "+ req);
+function contextUser(req) {
+    // console.log("request in context: "+ req.cookies.token);
     return req && req.cookies.token
           ? getUserId(req)
+          : null;
+}
+
+function contextAdmin(req) {
+    // console.log("request in context: "+ req.cookies.token);
+    return req && req.cookies.token
+          ? getAdminId(req)
           : null;
 }
 
@@ -50,9 +57,8 @@ app.use('/user', graphqlHTTP((request, response) => ({
     //directing express-graphql to use this schema to map out the graph 
     schema: userSchema,
     context: {
-        request: request,
-        response: response,
-        userId: context(request),
+        ...request,response,
+        userId: contextUser(request),
     },
     graphiql:true
 })));
@@ -61,9 +67,8 @@ app.use('/user', graphqlHTTP((request, response) => ({
 app.use('/admin', graphqlHTTP((request, response) => ({
     schema: adminSchema,
     context: {
-        request: request,
-        response: response,
-        adminId: context(request),
+        ...request,response,
+        adminId: contextAdmin(request),
     },
     graphiql:true
 })));

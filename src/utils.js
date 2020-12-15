@@ -5,10 +5,12 @@ function getTokenPayload(token) {
 }
 
 export function getUserId(req, authToken) {
+    // console.log("getuserId");
     if (req) {
       const token = req.cookies.token;
       if (token) {
         const { userId } = getTokenPayload(token);
+        // console.log("userId: " + userId);
         return userId;
       } else {
         throw new Error('No token found');
@@ -19,6 +21,25 @@ export function getUserId(req, authToken) {
     }
     throw new Error('Not authenticated');
 }
+
+export function getAdminId(req, authToken) {
+  // console.log("getAdminId");
+  if (req) {
+    const token = req.cookies.token;
+    if (token) {
+      const { administratorId } = getTokenPayload(token);
+      // console.log("administratorId: " + administratorId);
+      return administratorId;
+    } else {
+      throw new Error('No token found');
+    }
+  } else if (authToken) {
+    const { administratorId } = getTokenPayload(authToken);
+    return administratorId;
+  }
+  throw new Error('Not authenticated');
+}
+
 
 export function checkPassword(password) {
   let result = {};
