@@ -6,6 +6,7 @@ import {
 import UserModel from '../../models/user.js';
 import SubscriptionModel from '../../models/subscription.js';
 import UserType from '../customTypes/user.js';
+import SubscriptionServiceType from '../customTypes/subscription.js';
 import {
     FrequencyType,
     CategoryType,
@@ -119,31 +120,31 @@ const deleteSubscriptionToUser = {
     }
 }
 
-// const createSubscription = {
-//     type: SubscriptionServiceType,
-//     args: {
-//         name: {type: new GraphQLNonNull(GraphQLString)},
-//         billingDate: {type: GraphQLDate},
-//         cost: {type: new GraphQLNonNull(GraphQLFloat)},
-//         frequency: {type: new GraphQLNonNull(FrequencyType)},
-//         category: {type: new GraphQLNonNull(CategoryType)},
-//     },
-//     resolve: async function(parent, args) {
-//         const newSubscription = {
-//             name: args.name,
-//             billingDate: args.billingDate,
-//             cost: args.cost,
-//             category: args.category,
-//             frequency: args.frequency,
-//         };
-//         return newSubscription;
-//     }
-// }
+const createSubscription = {
+    type: SubscriptionServiceType,
+    args: {
+        name: {type: new GraphQLNonNull(GraphQLString)},
+        billingDate: {type: GraphQLDate},
+        cost: {type: new GraphQLNonNull(GraphQLFloat)},
+        frequency: {type: new GraphQLNonNull(FrequencyType)},
+        category: {type: new GraphQLNonNull(CategoryType)},
+    },
+    resolve: async function(parent, args) {
+        const newSubscription = {
+            name: args.name,
+            billingDate: args.billingDate,
+            cost: args.cost,
+            category: args.category,
+            frequency: args.frequency,
+        };
+        return newSubscription;
+    }
+}
 
 export {
     getUser,
     postSubscriptionToUser,
     editSubscriptionToUser,
     deleteSubscriptionToUser,
-    // createSubscription,
+    createSubscription,
 };

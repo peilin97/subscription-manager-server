@@ -35,6 +35,8 @@ const signup = {
             throw new Error(result.message);
         }
         const hashedPassword = await bcrypt.hash(password, 10);
+        console.log(invitationCode);
+        console.log(process.env.ADMINISTRATOR_SECRET);
         if (invitationCode !== process.env.ADMINISTRATOR_SECRET) {
             throw new Error('Invalid invitation code');
         }
@@ -49,9 +51,7 @@ const signup = {
             {expiresIn: '30d'},
         );
         response.cookie('token', token, {httpOnly: true});
-        return {
-            administrator
-        };
+        return administrator;
     }
 }
 
@@ -77,9 +77,7 @@ const login = {
             {expiresIn: '30d'},
         );
         response.cookie('token', token, {httpOnly: true});
-        return {
-            administrator
-        };
+        return administrator;
     }
 }
 
@@ -98,9 +96,7 @@ const findUser = {
         if (!user) {
             throw new Error('No such user found');
         }
-        return {
-            user
-        };
+        return user;
     }
 }
 

@@ -23,23 +23,24 @@ db.on('error', console.error.bind(console, 'Error connecting to mongodb'));
 
 const app = express();
 app.use(bodyParser.json());
+app.use(express.urlencoded({
+    extended: true
+}));
+
 app.use(cookieParser());
 const corsCredentials = {
     credentials: true,
-    // origin: process.env.PLAYGROUND_URL,
+    // origin: process.env.CLIENT_URL,
     origin: true,
 }
 app.use(cors(corsCredentials));
 app.options('*', cors(corsCredentials));
-app.use(express.urlencoded({
-    extended: true
-}));
 
 app.set('port', (process.env.PORT || 5000))
 
 function context(req) {
     // console.log("req: "+ req);
-    return req && req.headers.authorization
+    return req && req.cookies.token
           ? getUserId(req)
           : null;
 }

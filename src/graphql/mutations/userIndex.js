@@ -9,6 +9,7 @@ import {
     postSubscriptionToUser,
     editSubscriptionToUser,
     deleteSubscriptionToUser,
+    createSubscription,
 } from './user.js';
 import { logout } from './common.js'
 
@@ -21,4 +22,5 @@ export default {
     postSubscriptionToUser,
     editSubscriptionToUser,
     deleteSubscriptionToUser,
+    createSubscription,
 };

@@ -6,20 +6,17 @@ function getTokenPayload(token) {
 
 export function getUserId(req, authToken) {
     if (req) {
-      const authHeader = req.headers.authorization;
-      if (authHeader) {
-        const token = authHeader.replace('Bearer ', '');
-        if (!token) {
-          throw new Error('No token found');
-        }
+      const token = req.cookies.token;
+      if (token) {
         const { userId } = getTokenPayload(token);
         return userId;
+      } else {
+        throw new Error('No token found');
       }
     } else if (authToken) {
       const { userId } = getTokenPayload(authToken);
       return userId;
     }
-  
     throw new Error('Not authenticated');
 }
 
