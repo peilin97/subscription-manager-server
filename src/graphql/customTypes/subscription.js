@@ -4,7 +4,6 @@ import {
     GraphQLID,
     GraphQLString,
     GraphQLEnumType,
-    GraphQLNonNull,
 } from 'graphql';
 import GraphQLISODate from 'graphql-iso-date';
 
@@ -33,13 +32,13 @@ export const CategoryType = new GraphQLEnumType({
 const SubscriptionServiceType = new GraphQLObjectType({
     name: 'SubscriptionService',
     fields: () => ({
-        id: {type: new GraphQLNonNull(GraphQLID)},
-        name: {type: new GraphQLNonNull(GraphQLString)},
+        id: {type: GraphQLID},
+        name: {type: GraphQLString},
         // billingDate: {type: GraphQLNonNull(DateType)},
         billingDate: {type: GraphQLDate},
-        cost: {type: new GraphQLNonNull(GraphQLFloat)},
-        frequency: {type: new GraphQLNonNull(FrequencyType)},
-        category: {type: new GraphQLNonNull(CategoryType)},
+        cost: {type: GraphQLFloat},
+        frequency: {type: FrequencyType},
+        category: {type: CategoryType},
         userId: {type: GraphQLString},
     })
 })
