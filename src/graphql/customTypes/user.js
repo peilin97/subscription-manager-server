@@ -16,6 +16,7 @@ const UserType = new GraphQLObjectType({
         username: {type: new GraphQLNonNull(GraphQLString)},
         email: {type: new GraphQLNonNull(GraphQLString)},
         password: {type: new GraphQLNonNull(GraphQLString)},
+        cover: {type: GraphQLString},
         subscriptionsId: {type: new GraphQLList(GraphQLString)},
         subscriptions:{
             type: new GraphQLList(SubscriptionServiceType),

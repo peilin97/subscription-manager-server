@@ -23,12 +23,10 @@ export function getUserId(req, authToken) {
 }
 
 export function getAdminId(req, authToken) {
-  // console.log("getAdminId");
   if (req) {
     const token = req.cookies.token;
     if (token) {
       const { administratorId } = getTokenPayload(token);
-      // console.log("administratorId: " + administratorId);
       return administratorId;
     } else {
       throw new Error('No token found');

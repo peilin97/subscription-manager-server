@@ -5,6 +5,7 @@ const UserSchema = new mongoose.Schema({
     username: {type: String, required: true},
     password: {type: String, required: true},
     createdOn: {type: Date, default: Date.now()},
+    cover: {type: String},
     subscriptionsId: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Subscription"

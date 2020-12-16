@@ -11,6 +11,10 @@ import {
     deleteSubscriptionToUser,
     createSubscription,
 } from './user.js';
+import {
+    addCover,
+    removeCover,
+} from './cover.js';
 import { logout } from './common.js'
 
 export default {
@@ -24,4 +28,6 @@ export default {
     editSubscriptionToUser,
     deleteSubscriptionToUser,
     createSubscription,
+    addCover,
+    removeCover,
 };
