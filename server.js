@@ -75,7 +75,6 @@ app.use('/admin', graphqlHTTP((request, response) => ({
 
 // for testing
 app.use('/', function (req, res) {
-    // console.log(req.ip);
     res.send("hello");
 })
 

@@ -17,6 +17,9 @@ const Query = new GraphQLObjectType({
             args: {},
             resolve: async function (_, __, context) {
                 const { userId } = context;
+                if (!userId) {
+                    throw new Error('You must log in first.');
+                }
                 const user = await UserModel.findById(userId);
                 return user;
             }

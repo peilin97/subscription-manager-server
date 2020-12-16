@@ -20,7 +20,7 @@ const { GraphQLDate } = GraphQLISODate;
 
 const getUser = {
     type: UserType,
-    resolve: async function (parent, args, context) {
+    resolve: async function (_, __, context) {
         const { userId } = context;
         // update subscriptions' billing date if necessary before return
         const user = await UserModel.findById(userId);
@@ -51,7 +51,7 @@ const postSubscriptionToUser = {
         frequency: {type: new GraphQLNonNull(FrequencyType)},
         category: {type: new GraphQLNonNull(CategoryType)},
     },
-    resolve: async function(parent, args, context) {
+    resolve: async function(_, args, context) {
         const { userId } = context;
         const newSubscription = await SubscriptionModel.create({
             name: args.name,
@@ -103,7 +103,7 @@ const deleteSubscriptionToUser = {
     args: {
         id: {type: GraphQLString},  // this subscription's id
     },
-    resolve: async function(parent, { id }, context) {
+    resolve: async function(_, { id }, context) {
         const { userId } = context;
         await SubscriptionModel.findByIdAndDelete(id);
         try {

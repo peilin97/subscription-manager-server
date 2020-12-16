@@ -1,8 +1,8 @@
 import {
     signup,
     login,
-    // logout,
     editProfile,
+    changePassword,
 } from './auth.js';
 import {
     getUser,
@@ -18,6 +18,7 @@ export default {
     login,
     logout,
     editProfile,
+    changePassword,
     getUser,
     postSubscriptionToUser,
     editSubscriptionToUser,

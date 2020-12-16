@@ -73,10 +73,9 @@ const editProfile = {
     args: {
         email: {type: new GraphQLNonNull(GraphQLString)},
         username: {type: new GraphQLNonNull(GraphQLString)},
-        password: {type: new GraphQLNonNull(GraphQLString)},
     },
-    resolve: async function (_, { email, username, password}, context) {
-        const { userId } = context;
+    resolve: async function (_, { email, username}, context) {
+        const { userId, response } = context;
         const oldUser = await UserModel.findById(userId);
         // check the validity of email
         if (oldUser.email !== email
@@ -86,7 +85,28 @@ const editProfile = {
         if (!Isemail.validate(email)) {
             throw new Error('Invalid Email');
         }
-        // check password
+        const user = await UserModel.findByIdAndUpdate(
+            userId,
+            {
+                email: email,
+                username: username
+            },
+            {new: true}
+        );
+        const token = jwt.sign({userId: userId}, process.env.APP_SECRET);
+        response.cookie('token', token, {httpOnly: true});
+        return user;
+    }
+}
+
+const changePassword = {
+    type: UserType,
+    args: {
+        password: {type: new GraphQLNonNull(GraphQLString)},
+    },
+    resolve: async function(_, {password}, context) {
+        const { userId, response } = context;
+        const oldUser = await UserModel.findById(userId);
         const result = checkPassword(password);
         if (!result.isValid) {
             throw new Error(result.message);
@@ -94,11 +114,7 @@ const editProfile = {
         const hashedPassword = await bcrypt.hash(password, 10);
         const user = await UserModel.findByIdAndUpdate(
             userId,
-            {
-                email: email,
-                password: hashedPassword,
-                username: username
-            },
+            { password: hashedPassword },
             {new: true}
         );
         const token = jwt.sign({userId: userId}, process.env.APP_SECRET);
@@ -111,4 +127,5 @@ export {
     signup,
     login,
     editProfile,
+    changePassword,
 };
