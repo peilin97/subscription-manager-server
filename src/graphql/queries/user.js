@@ -13,16 +13,11 @@ const Query = new GraphQLObjectType({
     fields: () => ({
         user: {
             type: UserType,
-            description: 'get the user by HTTP Headers {"Authorization": "Bearer TOKEN"}',
+            description: 'get the user',
             args: {},
             resolve: async function (_, __, context) {
                 const { userId } = context;
                 const user = await UserModel.findById(userId);
-                // if (user.id !== userId) {
-                //     console.log(user.id);
-                //     console.log(userId);
-                //     throw new Error("No right to check other user's information");
-                // }
                 return user;
             }
         },
@@ -32,7 +27,7 @@ const Query = new GraphQLObjectType({
             args: {
                 id: {type: GraphQLString}
             },
-            resolve: async function (parent, { id }, context) {
+            resolve: async function (_, { id }, context) {
                 const { userId } = context;
                 const subscriptionService = await SubscriptionModel.findById(mongoose.Types.ObjectId(id));
                 if (!subscriptionService) {

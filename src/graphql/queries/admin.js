@@ -9,10 +9,14 @@ const Query = new GraphQLObjectType({
     fields: () => ({
         administrator: {
             type: AdministratorType,
-            description: 'get the administrator by HTTP Headers {"Authorization": "Bearer TOKEN"}',
+            description: 'get the administrator',
             args: {},
             resolve: async function (_, __, context) {
                 const { adminId } = context;
+                // console.log(adminId);
+                if (!adminId) {
+                    throw new Error('You must log in first.');
+                }
                 const administrator = await AdministratorModel.findById(adminId);
                 return administrator;
             }
