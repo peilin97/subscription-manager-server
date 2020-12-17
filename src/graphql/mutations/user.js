@@ -24,19 +24,23 @@ const getUser = {
         const { userId } = context;
         // update subscriptions' billing date if necessary before return
         const user = await UserModel.findById(userId);
-        for (let subId of user.subscriptionsId) {
-            const sub = await SubscriptionModel.findById(subId);
-            if (sub.billingDate < Date.now()) {
-                // update the billing date
-                const newBillingDate = updateBillingDate(sub.billingDate, sub.frequency);
-                await SubscriptionModel.findByIdAndUpdate(
-                    subId,
-                    { billingDate: newBillingDate },
-                    {new: true}
-                );
+        try{
+            for (let subId of user.subscriptionsId) {
+                const sub = await SubscriptionModel.findById(subId);
+                if (sub.billingDate < Date.now()) {
+                    // update the billing date
+                    const newBillingDate = updateBillingDate(sub.billingDate, sub.frequency);
+                    await SubscriptionModel.findByIdAndUpdate(
+                        subId,
+                        { billingDate: newBillingDate },
+                        {new: true}
+                    );
+                }
             }
+        } catch (err) {
+            console.log(err);
         }
-        
+
         return user;
     }
 }
