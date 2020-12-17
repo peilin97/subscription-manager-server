@@ -34,7 +34,6 @@ const SubscriptionServiceType = new GraphQLObjectType({
     fields: () => ({
         id: {type: GraphQLID},
         name: {type: GraphQLString},
-        // billingDate: {type: GraphQLNonNull(DateType)},
         billingDate: {type: GraphQLDate},
         cost: {type: GraphQLFloat},
         frequency: {type: FrequencyType},
