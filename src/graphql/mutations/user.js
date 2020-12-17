@@ -24,8 +24,7 @@ const getUser = {
         const { userId } = context;
         // update subscriptions' billing date if necessary before return
         const user = await UserModel.findById(userId);
-        const subscriptionsId = user.subscriptionsId;
-        for (let subId of subscriptionsId) {
+        for (let subId of user.subscriptionsId) {
             const sub = await SubscriptionModel.findById(subId);
             if (sub.billingDate < Date.now()) {
                 // update the billing date
