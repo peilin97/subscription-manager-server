@@ -11,9 +11,7 @@ import { getUserId, getAdminId } from './src/utils.js';
 
 dotenv.config();
 // connect mongoose to the mongodb database
-const mongoDBEndpoint = "mongodb+srv://final-project:FinalProject2020@cluster0.lnvq4.mongodb.net/FinalProject?retryWrites=true&w=majority";
-
-// const mongoDBEndpoint = process.env.MONGODB_URI || 'mongodb://127.0.0.1/sub_manager';
+const mongoDBEndpoint = process.env.MONGODB_URI || 'mongodb://127.0.0.1/sub_manager';
 mongoose.connect(mongoDBEndpoint, {
     useUnifiedTopology: true,
     useNewUrlParser: true,
@@ -24,7 +22,7 @@ const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'Error connecting to mongodb'));
 
 const app = express();
-app.use(bodyParser.json());
+app.use(bodyParser.json({ extended: false }));
 app.use(express.urlencoded({
     extended: true
 }));
@@ -32,7 +30,6 @@ app.use(express.urlencoded({
 app.use(cookieParser());
 const corsCredentials = {
     credentials: true,
-    // origin: process.env.CLIENT_URL,
     origin: true,
 }
 app.use(cors(corsCredentials));

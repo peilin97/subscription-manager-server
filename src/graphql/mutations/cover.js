@@ -12,7 +12,6 @@ const addCover = {
     },
     resolve: async function (_, {cover}, context) {
         const { userId } = context;
-        // update subscriptions' billing date if necessary before return
         const user = await UserModel.findByIdAndUpdate(
             userId,
             { cover: cover },
@@ -27,7 +26,6 @@ const removeCover = {
     type: UserType,
     resolve: async function (_, __, context) {
         const { userId } = context;
-        // update subscriptions' billing date if necessary before return
         const user = await UserModel.findByIdAndUpdate(
             userId,
             { cover: '' },

@@ -1,5 +1,10 @@
 # subscription-manager-server
 
+## Dec 17 - submission
+### Endpoints
+User: http://subscription-manager-server.tech/user
+
+Administrator: http://subscription-manager-server.tech/admin
 ## Dec 9 - check in 2
 ### Installation
 1. Clone the repo
