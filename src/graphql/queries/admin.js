@@ -13,7 +13,6 @@ const Query = new GraphQLObjectType({
             args: {},
             resolve: async function (_, __, context) {
                 const { adminId } = context;
-                // console.log(adminId);
                 if (!adminId) {
                     throw new Error('You must log in first.');
                 }

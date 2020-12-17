@@ -24,26 +24,20 @@ const getUser = {
         const { userId } = context;
         // update subscriptions' billing date if necessary before return
         const user = await UserModel.findById(userId);
-        if (!user.subscriptionsId) {
-            console.log("null");
-        }
-            console.log(user.subscriptionsId);
-        if (user.subscriptionsId) {
-            const subscriptionsId = user.subscriptionsId;
-            for (let subId of subscriptionsId) {
-                const sub = await SubscriptionModel.findById(subId);
-                // console.log(sub.billingDate)
-                if (sub.billingDate < Date.now()) {
-                    // update the billing date
-                    const newBillingDate = updateBillingDate(sub.billingDate, sub.frequency);
-                    await SubscriptionModel.findByIdAndUpdate(
-                        subId,
-                        { billingDate: newBillingDate },
-                        {new: true}
-                    );
-                }
+        const subscriptionsId = user.subscriptionsId;
+        for (let subId of subscriptionsId) {
+            const sub = await SubscriptionModel.findById(subId);
+            if (sub.billingDate < Date.now()) {
+                // update the billing date
+                const newBillingDate = updateBillingDate(sub.billingDate, sub.frequency);
+                await SubscriptionModel.findByIdAndUpdate(
+                    subId,
+                    { billingDate: newBillingDate },
+                    {new: true}
+                );
             }
         }
+        
         return user;
     }
 }
@@ -118,7 +112,6 @@ const deleteSubscriptionToUser = {
                 { $pull: {subscriptionsId: id } },
                 {new: true}
             );
-            console.log(user);
             return user;
         } catch (err) {
             console.error(`Something went wrong: ${err}`);

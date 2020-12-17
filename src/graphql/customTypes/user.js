@@ -21,7 +21,7 @@ const UserType = new GraphQLObjectType({
         subscriptions:{
             type: new GraphQLList(SubscriptionServiceType),
             resolve(user) {
-                return (!subscriptionsId) ? []
+                return (user.subscriptionsId.length === 0) ? []
                 : user.subscriptionsId.map(async (id) => {
                     const res = await SubscriptionModel.findById(mongoose.Types.ObjectId(id));
                     return res;

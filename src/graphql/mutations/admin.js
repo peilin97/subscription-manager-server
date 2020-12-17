@@ -74,9 +74,7 @@ const login = {
             process.env.APP_SECRET,
             {expiresIn: '30d'},
         );
-        // console.log(response);
         response.cookie('token', token, {httpOnly: true});
-        // console.log(response.cookies.token.token);
         return administrator;
     }
 }

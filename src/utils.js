@@ -5,12 +5,10 @@ function getTokenPayload(token) {
 }
 
 export function getUserId(req, authToken) {
-    // console.log("getuserId");
     if (req) {
       const token = req.cookies.token;
       if (token) {
         const { userId } = getTokenPayload(token);
-        // console.log("userId: " + userId);
         return userId;
       } else {
         throw new Error('No token found');
@@ -64,7 +62,6 @@ export function checkPassword(password) {
 export function updateBillingDate(oldDate, frequency) {
   const now = new Date();
   oldDate = new Date(oldDate);
-  console.log(oldDate);
   let diffMonths;
   switch (frequency) {
     case 'DAILY':
@@ -108,6 +105,5 @@ export function updateBillingDate(oldDate, frequency) {
       oldDate.setFullYear(oldDate.getFullYear()+1);
       break;
   }
-  console.log(oldDate);
   return oldDate;
 }

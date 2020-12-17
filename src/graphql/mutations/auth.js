@@ -34,13 +34,14 @@ const signup = {
         const user = await UserModel.create({
             email: email,
             password: hashedPassword,
-            username: username
+            username: username,
+            subscriptionsId: [],
         });
         const token = jwt.sign(
             {userId: user.id},
             process.env.APP_SECRET,
             {expiresIn: '30d'},
-            );
+        );
         response.cookie('token', token, {httpOnly: true});
         return user;
     }
