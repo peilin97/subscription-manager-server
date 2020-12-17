@@ -26,18 +26,18 @@ const getUser = {
         const user = await UserModel.findById(userId);
         
         // if (user.subscriptionsId.length > 0) {
-        //     for (let subId of user.subscriptionsId) {
-        //         const sub = await SubscriptionModel.findById(subId);
-        //         if (sub.billingDate < Date.now()) {
-        //             // update the billing date
-        //             const newBillingDate = updateBillingDate(sub.billingDate, sub.frequency);
-        //             await SubscriptionModel.findByIdAndUpdate(
-        //                 subId,
-        //                 { billingDate: newBillingDate },
-        //                 {new: true}
-        //             );
-        //         }
-        //     }
+            for (let subId of user.subscriptionsId) {
+                const sub = await SubscriptionModel.findById(subId);
+                if (sub.billingDate < Date.now()) {
+                    // update the billing date
+                    const newBillingDate = updateBillingDate(sub.billingDate, sub.frequency);
+                    await SubscriptionModel.findByIdAndUpdate(
+                        subId,
+                        { billingDate: newBillingDate },
+                        {new: true}
+                    );
+                }
+            }
         // } else {
         //     user.subscriptionsId = [];
         // }

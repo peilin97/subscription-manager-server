@@ -11,7 +11,9 @@ import { getUserId, getAdminId } from './src/utils.js';
 
 dotenv.config();
 // connect mongoose to the mongodb database
-const mongoDBEndpoint = process.env.MONGODB_URI || 'mongodb://127.0.0.1/sub_manager';
+const mongoDBEndpoint = "mongodb+srv://final-project:FinalProject2020@cluster0.lnvq4.mongodb.net/FinalProject?retryWrites=true&w=majority";
+
+// const mongoDBEndpoint = process.env.MONGODB_URI || 'mongodb://127.0.0.1/sub_manager';
 mongoose.connect(mongoDBEndpoint, {
     useUnifiedTopology: true,
     useNewUrlParser: true,
